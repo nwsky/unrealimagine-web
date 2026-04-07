@@ -1838,7 +1838,7 @@ main {
 
 /* ── Page hero improved depth ── */
 .cinematic-page-hero .hero-backdrop {
-  background-image: url('/bg-page.jpg');
+  background-image: url('/bg-hero.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
