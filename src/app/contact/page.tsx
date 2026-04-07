@@ -21,7 +21,9 @@ export default function ContactPage() {
 
         {/* ── Hero ── */}
         <section className="contact-hero cinematic-page-hero">
-          <div className="hero-backdrop" />
+          <div className="hero-backdrop">
+            <video autoPlay muted loop playsInline className="hero-bg-video" src="/hero-bg-video.mp4" />
+          </div>
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <div className="contact-hero-content reveal">
               <p className="eyebrow">Contact</p>
