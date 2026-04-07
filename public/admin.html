@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UnrealImagine — Admin</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #05070d; color: #edf2ff; font-family: -apple-system, 'Inter', sans-serif; min-height: 100vh; }
+
+    /* Login */
+    #login-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 24px;
+    }
+    .login-card {
+      width: 100%; max-width: 380px;
+      padding: 40px 32px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+    }
+    .login-card .eyebrow { color: #8c7bff; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 8px; }
+    .login-card h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+    .login-card p { color: #475569; font-size: 0.82rem; margin-bottom: 28px; }
+    .login-card input[type=password] {
+      width: 100%; padding: 12px 14px;
+      background: #0f172a; border: 1px solid #334155;
+      border-radius: 8px; color: #edf2ff; font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    .login-card input[type=password]:focus { outline: 2px solid #8c7bff; }
+    .btn-primary {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, #8c7bff, #6f61ff);
+      border: none; border-radius: 8px;
+      color: #fff; font-weight: 700; font-size: 1rem;
+      cursor: pointer;
+    }
+    .error-msg { color: #f87171; font-size: 0.82rem; margin-bottom: 12px; }
+
+    /* Admin */
+    #admin-screen { display: none; padding: 32px 24px; max-width: 960px; margin: 0 auto; }
+    .admin-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+    .admin-header h1 { font-size: 1.5rem; font-weight: 700; }
+    .admin-header p { color: #64748b; font-size: 0.82rem; margin-top: 4px; }
+    .btn-logout { padding: 8px 16px; background: transparent; border: 1px solid #334155; border-radius: 8px; color: #64748b; cursor: pointer; font-size: 0.8rem; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 8px 18px; border-radius: 8px;
+      border: 1px solid #1e293b;
+      background: transparent; color: #64748b;
+      cursor: pointer; font-size: 0.85rem; font-weight: 600;
+      transition: all 150ms;
+    }
+    .tab-btn.active { border-color: #8c7bff; background: rgba(140,123,255,0.12); color: #edf2ff; }
+
+    /* Panels */
+    .panel {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid #1e293b; border-radius: 12px;
+      padding: 20px; margin-bottom: 20px;
+    }
+    .panel-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 12px; }
+    .hint { color: #475569; font-size: 0.8rem; margin-bottom: 12px; line-height: 1.6; }
+    .hint code { color: #8c7bff; font-size: 0.78rem; }
+    .accent { color: #8c7bff; font-weight: 600; }
+
+    /* Inputs */
+    input[type=text], input[type=url], textarea {
+      width: 100%; padding: 10px 14px;
+      background: #0f172a; border: 1px solid #1e293b;
+      border-radius: 8px; color: #edf2ff; font-size: 0.88rem;
+      margin-bottom: 8px; display: block;
+    }
+    input[type=text]:focus, input[type=url]:focus { outline: 2px solid #8c7bff44; }
+
+    /* Buttons */
+    .btn { padding: 9px 20px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; border: 1px solid; transition: opacity 150ms; }
+    .btn:hover { opacity: 0.8; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-purple { background: rgba(140,123,255,0.12); border-color: rgba(140,123,255,0.4); color: #8c7bff; }
+    .btn-blue { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.4); color: #38bdf8; }
+    .btn-indigo { background: rgba(129,140,248,0.1); border-color: rgba(129,140,248,0.4); color: #818cf8; }
+    .btn-red { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.4); color: #f87171; font-size: 0.72rem; padding: 4px 10px; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: #1e293b; border: 1px solid #334155;
+      border-radius: 8px; padding: 10px 18px;
+      color: #4ade80; font-size: 0.85rem;
+      display: none; z-index: 999;
+    }
+
+    /* Cover preview */
+    .cover-preview { width: 90px; aspect-ratio: 9/16; object-fit: cover; border-radius: 8px; }
+
+    /* Media grid */
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+    .media-thumb { background: #0f172a; border-radius: 8px; overflow: hidden; border: 1px solid #1e293b; }
+    .media-thumb img { width: 100%; aspect-ratio: 9/16; object-fit: cover; display: block; }
+    .media-thumb .video-ph { width: 100%; aspect-ratio: 9/16; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+    .media-thumb .media-info { padding: 8px 10px; }
+    .media-thumb .media-caption { font-size: 0.7rem; color: #94a3b8; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .empty-msg { color: #475569; font-size: 0.85rem; }
+    .footer-note { color: #1e293b; font-size: 0.7rem; text-align: center; margin-top: 32px; }
+  </style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-screen">
+  <div class="login-card">
+    <p class="eyebrow">UnrealImagine</p>
+    <h1>Admin Access</h1>
+    <p>Enter your password to continue.</p>
+    <div id="login-error" class="error-msg" style="display:none"></div>
+    <input type="password" id="pw-input" placeholder="Password" autofocus />
+    <button class="btn-primary" onclick="doLogin()">Enter</button>
+  </div>
+</div>
+
+<!-- Admin -->
+<div id="admin-screen">
+  <div class="admin-header">
+    <div>
+      <p class="eyebrow" style="color:#8c7bff;font-size:0.72rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px">UnrealImagine — Admin</p>
+      <h1>Media Manager</h1>
+      <p>Upload vertical 9:16 photos and videos for each project.</p>
+    </div>
+    <button class="btn-logout" onclick="doLogout()">Log Out</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs" id="tabs"></div>
+
+  <!-- Current Media Count -->
+  <div class="panel" id="status-panel" style="padding:12px 20px;font-size:0.9rem">
+    <span id="project-name"></span> · <span id="media-count">0</span> items
+  </div>
+
+  <!-- Upload files -->
+  <div class="panel">
+    <p class="panel-label">Upload Photos / Video Files</p>
+    <p class="hint"><span class="accent">Vertical 9:16 · 1080×1920px</span> · JPG / PNG / WEBP / MP4 · Max 100MB</p>
+    <input type="file" id="file-input" accept="image/*,video/*" multiple onchange="handleFileUpload(event)" />
+    <button class="btn btn-blue" onclick="document.getElementById('file-input').click()" id="upload-btn">+ Upload Files</button>
+  </div>
+
+  <!-- Video URL -->
+  <div class="panel">
+    <p class="panel-label">Add Video (YouTube / Vimeo Embed)</p>
+    <p class="hint">
+      YouTube: <code>https://www.youtube.com/embed/VIDEO_ID</code><br>
+      Vimeo: <code>https://player.vimeo.com/video/VIDEO_ID</code>
+    </p>
+    <input type="text" id="video-url" placeholder="Embed URL *" />
+    <input type="text" id="video-caption" placeholder="Caption (optional)" />
+    <input type="text" id="video-thumb" placeholder="Thumbnail image URL (optional)" />
+    <button class="btn btn-indigo" onclick="addVideo()">Add Video</button>
+  </div>
+
+  <!-- Media list -->
+  <div class="panel">
+    <p class="panel-label" id="media-count-label">Current Media</p>
+    <div id="media-grid"></div>
+  </div>
+
+  <p class="footer-note">UnrealImagine Admin · Media Manager</p>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+const PASSWORD = "unrealimagine2024";
+const PROJECTS = [
+  { slug: "fractured-sunset", title: "Fractured Sunset" },
+  { slug: "second-signal",    title: "Second Signal" },
+  { slug: "after-the-scene",  title: "After the Scene" },
+];
+let currentSlug = PROJECTS[0].slug;
+let mediaData = {};
+
+// ── Auth ──
+function doLogin() {
+  const pw = document.getElementById("pw-input").value;
+  if (pw === PASSWORD) {
+    sessionStorage.setItem("admin_ok","1");
+    showAdmin();
+  } else {
+    const el = document.getElementById("login-error");
+    el.textContent = "Wrong password. Try again.";
+    el.style.display = "block";
+  }
+}
+document.getElementById("pw-input").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+
+function doLogout() {
+  sessionStorage.removeItem("admin_ok");
+  location.reload();
+}
+
+// ── Init ──
+function showAdmin() {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("admin-screen").style.display = "block";
+  buildTabs();
+  fetchMedia();
+}
+
+if (sessionStorage.getItem("admin_ok") === "1") showAdmin();
+
+// ── Tabs ──
+function buildTabs() {
+  const el = document.getElementById("tabs");
+  el.innerHTML = PROJECTS.map(p =>
+    `<button class="tab-btn ${p.slug === currentSlug ? 'active' : ''}" onclick="switchTab('${p.slug}')">${p.title}</button>`
+  ).join("");
+}
+
+function switchTab(slug) {
+  currentSlug = slug;
+  buildTabs();
+  renderMedia();
+}
+
+// ── Fetch ──
+async function fetchMedia() {
+  try {
+    const res = await fetch("/api/admin/media");
+    mediaData = await res.json();
+  } catch(e) {
+    mediaData = {};
+  }
+  renderMedia();
+}
+
+// ── Render ──
+function renderMedia() {
+  const project = mediaData[currentSlug] ?? { cover: "", media: [] };
+  const projectName = PROJECTS.find(p => p.slug === currentSlug)?.title || currentSlug;
+
+  // Update status
+  document.getElementById("project-name").textContent = projectName;
+  document.getElementById("media-count").textContent = project.media.length;
+
+  // Media grid
+  const grid = document.getElementById("media-grid");
+  const label = document.getElementById("media-count-label");
+  label.textContent = `Current Media (${project.media.length} items)`;
+
+  if (project.media.length === 0) {
+    grid.innerHTML = `<p class="empty-msg">No media yet for this project.</p>`;
+    return;
+  }
+
+  grid.innerHTML = `<div class="media-grid">${
+    project.media.map((item, i) => `
+      <div class="media-thumb">
+        ${item.type === "image" && item.src.startsWith("/media/")
+          ? `<img src="${item.src}" alt="" />`
+          : item.type === "image"
+          ? `<img src="${item.src}" alt="" onerror="this.parentElement.innerHTML='<div class=video-ph>?</div>'" />`
+          : `<div class="video-ph">▶</div>`}
+        <div class="media-info">
+          <p class="media-caption">${item.caption || item.type}</p>
+          <button class="btn btn-red" onclick="removeMedia(${i})">Remove</button>
+        </div>
+      </div>`
+    ).join("")
+  }</div>`;
+}
+
+// ── Upload ──
+async function handleFileUpload(e) {
+  const btn = document.getElementById("upload-btn");
+  btn.disabled = true; btn.textContent = "Uploading…";
+  
+  for (const file of Array.from(e.target.files || [])) {
+    await uploadFile(file, false);
+  }
+  
+  btn.disabled = false; btn.textContent = "+ Upload Files";
+  e.target.value = "";
+}
+
+async function uploadFile(file, isCover) {
+  try {
+    // 直接上传，生成虚拟 URL
+    const filename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+    const url = `/media/${filename}`;
+
+    await fetch("/api/admin/media", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        slug: currentSlug,
+        src: url,
+        type: file.type.startsWith("video/") ? "video" : "image",
+        isCover,
+      }),
+    });
+    
+    await fetchMedia();
+    toast(isCover ? "✓ Cover updated" : "✓ Media added");
+  } catch (err) {
+    toast("❌ " + (err ? err.message || String(err) : "Unknown error"));
+  }
+}
+
+async function addVideo() {
+  const url = document.getElementById("video-url").value.trim();
+  if (!url) return;
+  
+  await fetch("/api/admin/media", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      slug: currentSlug,
+      src: url,
+      thumb: document.getElementById("video-thumb").value.trim() || undefined,
+      caption: document.getElementById("video-caption").value.trim() || undefined,
+      type: "video",
+      isCover: false,
+    }),
+  });
+  
+  document.getElementById("video-url").value = "";
+  document.getElementById("video-caption").value = "";
+  document.getElementById("video-thumb").value = "";
+  await fetchMedia();
+  toast("✓ Video added");
+}
+
+async function removeMedia(index) {
+  await fetch("/api/admin/media", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ slug: currentSlug, index })
+  });
+  await fetchMedia();
+  toast("✓ Removed");
+}
+
+// ── Toast ──
+function toast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.style.display = "block";
+  setTimeout(() => el.style.display = "none", 2500);
+}
+</script>
+</body>
+</html>
