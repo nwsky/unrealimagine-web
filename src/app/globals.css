@@ -1844,6 +1844,10 @@ main {
   background-repeat: no-repeat;
   opacity: 0.18;
 }
+.works-page-hero .hero-backdrop { background-image: url('/works-cover.png'); }
+.about-hero .hero-backdrop { background-image: url('/bg-cta.jpg'); }
+.cap-hero .hero-backdrop { background-image: url('/cover-fractured-sunset.jpg'); }
+.contact-hero .hero-backdrop { background-image: url('/cover-chain-of-love.jpg'); }
 
 .cinematic-page-hero .hero-backdrop::after {
   content: "";
