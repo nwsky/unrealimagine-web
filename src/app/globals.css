@@ -97,8 +97,45 @@ main {
 .footer-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 24px;
-  padding: 28px 0 40px;
+  padding: 40px 0 32px;
+}
+
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.footer-social a {
+  color: var(--muted);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.footer-social a:hover {
+  color: var(--foreground);
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.footer-legal {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.02em;
 }
 
 .footer-copy {
@@ -590,7 +627,17 @@ main {
   }
 
   .footer-row {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-right {
+    align-items: flex-start;
+  }
+
+  .footer-nav {
+    flex-wrap: wrap;
   }
 
   .section-heading {

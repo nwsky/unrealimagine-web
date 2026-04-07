@@ -32,6 +32,7 @@ export const featuredWorks: Work[] = [
       "The Chain of Love is a micro-drama series produced by Unreal Imagine, now streaming on Vigloo. Alexis is blackmailed into spying on her boss and finds herself caught in a seductive, high-stakes power play where the lines between loyalty and desire blur at every turn. Starring Alyssa Corella, Zachary M. Davis, Hayley Jordyn Seat, and Daria Harnaha. Rated 8.1 on IMDB.",
     cover: "/cover-chain-of-love.jpg",
     media: [
+      { type: "video", src: "/chain-of-love-video.mp4", thumb: "/cover-chain-of-love.jpg", caption: "The Chain of Love — Teaser" },
       { type: "image", src: "/cover-chain-of-love.jpg", caption: "The Chain of Love — Now Streaming on Vigloo" },
       { type: "image", src: "/chain-of-love-2.jpg", caption: "Power and tension" },
       { type: "image", src: "/chain-of-love-3.jpg", caption: "Secrets and danger" },
@@ -53,7 +54,7 @@ export const featuredWorks: Work[] = [
       { type: "image", src: "/cover-fractured-sunset.jpg", caption: "Fractured Sunset — mood visual" },
       { type: "image", src: "/fractured-sunset-2.jpg", caption: "Fragmented time" },
       { type: "image", src: "/fractured-sunset-3.jpg", caption: "Absence and mystery" },
-      { type: "video", src: "https://www.youtube.com/embed/eRsGyueVLvQ", thumb: "/cover-fractured-sunset.jpg", caption: "Sintel — Cinematic tone reference (Blender Open Movie)" },
+      { type: "video", src: "/fractured-sunset-video.mp4", thumb: "/cover-fractured-sunset.jpg", caption: "Fractured Sunset — Teaser" },
     ],
   },
   {
@@ -72,7 +73,7 @@ export const featuredWorks: Work[] = [
       { type: "image", src: "/cover-second-signal.jpg", caption: "Second Signal — mood visual" },
       { type: "image", src: "/second-signal-2.jpg", caption: "Signal and isolation" },
       { type: "image", src: "/second-signal-3.jpg", caption: "Contained space" },
-      { type: "video", src: "https://www.youtube.com/embed/R6MlUcmOul8", thumb: "/cover-second-signal.jpg", caption: "Tears of Steel — Sci-fi tone reference (Blender Open Movie)" },
+      { type: "video", src: "/second-signal-video.mp4", thumb: "/cover-second-signal.jpg", caption: "Second Signal — Teaser" },
     ],
   },
   {
@@ -91,7 +92,7 @@ export const featuredWorks: Work[] = [
       { type: "image", src: "/cover-after-the-scene.jpg", caption: "After the Scene — mood visual" },
       { type: "image", src: "/after-the-scene-2.jpg", caption: "Behind the camera" },
       { type: "image", src: "/after-the-scene-3.jpg", caption: "Festival screening" },
-      { type: "video", src: "https://www.youtube.com/embed/aqz-KE-bpKQ", thumb: "/cover-after-the-scene.jpg", caption: "Big Buck Bunny — short-form storytelling reference (Blender Open Movie)" },
+      { type: "video", src: "/after-the-scene-video.mp4", thumb: "/cover-after-the-scene.jpg", caption: "After the Scene — Teaser" },
     ],
   },
 ];
