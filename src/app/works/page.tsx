@@ -11,9 +11,7 @@ export default function WorksPage() {
 
         {/* ── Page Hero ── */}
         <section className="works-page-hero cinematic-page-hero">
-          <div className="hero-backdrop">
-            <video autoPlay muted loop playsInline className="hero-bg-video" src="/hero-bg-video.mp4" />
-          </div>
+          <div className="hero-backdrop" />
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <p className="eyebrow">Works</p>
             <h1 className="works-page-title">

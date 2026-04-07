@@ -16,9 +16,7 @@ export default function CapabilitiesPage() {
 
         {/* ── Hero ── */}
         <section className="cap-hero cinematic-page-hero">
-          <div className="hero-backdrop">
-            <video autoPlay muted loop playsInline className="hero-bg-video" src="/hero-bg-video.mp4" />
-          </div>
+          <div className="hero-backdrop" />
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <div className="reveal">
               <p className="eyebrow">Capabilities</p>

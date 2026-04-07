@@ -38,9 +38,7 @@ export default function AboutPage() {
 
         {/* ── Hero ── */}
         <section className="about-hero cinematic-page-hero">
-          <div className="hero-backdrop">
-            <video autoPlay muted loop playsInline className="hero-bg-video" src="/hero-bg-video.mp4" />
-          </div>
+          <div className="hero-backdrop" />
           <div className="container" style={{ position: "relative", zIndex: 1 }}>
             <div className="about-hero-inner reveal">
               <p className="eyebrow">About · Culver City, CA · Est. 2022</p>
