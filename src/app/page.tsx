@@ -18,7 +18,9 @@ export default function Home() {
 
         {/* ── Hero ── */}
         <section className="hero hero-redesign cinematic-hero">
-          <div className="hero-backdrop" />
+          <div className="hero-backdrop">
+            <video autoPlay muted loop playsInline className="hero-bg-video" src="/hero-bg-video.mp4" />
+          </div>
           <div className="inner">
             <div className="text-col">
               <p className="eyebrow">Culver City, CA · Micro-Drama Production Studio</p>

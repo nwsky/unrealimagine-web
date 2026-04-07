@@ -1862,6 +1862,14 @@ main {
   background-repeat: no-repeat;
   opacity: 0.22;
 }
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+}
 
 .cinematic-hero .hero-backdrop::after {
   content: "";
